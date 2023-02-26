@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './course.css'
 
 const Course = ({ course }) => {
-    const { name, img, price } = course;
+    const { name, img, price, id } = course;
     return (
         <div className='course'>
             <div>
@@ -13,7 +13,7 @@ const Course = ({ course }) => {
             <div className='course-info'>
                 <h3>{name}</h3>
                 <h4>price: ${price}</h4>
-                <Link to='/details'>
+                <Link to={`/details/${id}`}>
                     <button>
                         Explore <FaArrowAltCircleRight></FaArrowAltCircleRight>
                     </button>
