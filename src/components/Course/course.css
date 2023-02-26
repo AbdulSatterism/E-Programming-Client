@@ -1,0 +1,28 @@
+.course {
+    border: 1px solid gray;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.course img {
+    width: 310px;
+    height: 350px;
+    margin-left: 15px;
+    border-radius: 5px;
+}
+
+.course-info {
+    font-family: lota;
+    text-align: center;
+
+}
+
+.course-info h3 {
+    margin-top: 15px;
+    color: orange;
+}
+
+.course-info h4 {
+
+    color: white;
+}

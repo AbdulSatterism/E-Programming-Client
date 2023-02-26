@@ -1,9 +1,19 @@
 import React from 'react';
+import { useLoaderData } from 'react-router-dom';
+import Course from '../Course/Course';
+import './courses.css'
 
 const Courses = () => {
+    const courses = useLoaderData();
+
     return (
-        <div>
-            <h1>welcome to our courses</h1>
+        <div className='container courses'>
+            {
+                courses.map(course => <Course
+                    key={course.id}
+                    course={course}
+                ></Course>)
+            }
         </div>
     );
 };

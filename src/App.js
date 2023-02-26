@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
 import Courses from './components/Courses/Courses';
+import Details from './components/Details/Details';
 import Home from './components/Home/Home';
 import Main from './Layout/Main';
 
@@ -16,8 +17,13 @@ function App() {
           element: <Home></Home>
         },
         {
+          path: '/details',
+          element: <Details></Details>
+        },
+        {
           path: '/courses',
-          element: <Courses></Courses>
+          element: <Courses></Courses>,
+          loader: () => fetch('https://e-programming-server.vercel.app/courses')
         }
       ]
     }
