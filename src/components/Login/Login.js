@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Login.css';
 import Form from 'react-bootstrap/Form';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/AuthContext';
 import { useContext } from 'react';
+import { toast } from 'react-hot-toast';
+import { GoogleAuthProvider } from 'firebase/auth';
+import { FaGoogle } from 'react-icons/fa';
 
 
 const Login = () => {
+    const [error, setError, setLoading] = useState('');
 
-    const { signInUser } = useContext(UserContext);
+    const { signInUser, signInWithGoogle } = useContext(UserContext);
+    const googleProvider = new GoogleAuthProvider();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -20,13 +28,37 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                form.reset();
+                setError('');
+                // verify ok
+                if (user.emailVerified) {
+                    navigate(from, { replace: true });
+                }
+                else {
+                    toast.error('your email is not verifiyed ! please verify')
+                }
+
             })
             .catch(error => {
                 const errorMessage = error.message;
-                console.log(errorMessage)
+                setError(errorMessage)
             })
-
+            .finally(() => {
+                setLoading(false)
+            })
     }
+
+
+
+    const handleGoogleSignIn = () => {
+        signInWithGoogle(googleProvider)
+            .then((result) => {
+                console.log(result.user)
+            })
+            .catch(error => setError(error.message))
+    }
+
+
     return (
         <div className='register-page container'>
             <div className="register-form">
@@ -47,9 +79,14 @@ const Login = () => {
                         Login
                     </button>
 
+                    <Form.Text className="text-danger">
+                        {error}
+                    </Form.Text>
                 </Form>
+                <hr />
+                <button onClick={handleGoogleSignIn}><FaGoogle></FaGoogle> Google</button>
             </div>
-        </div>
+        </div >
     );
 };
 

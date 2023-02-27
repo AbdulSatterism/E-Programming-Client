@@ -1,7 +1,6 @@
 import React from 'react';
-import { FaShopify } from 'react-icons/fa';
+import { FaShoppingCart } from 'react-icons/fa';
 import { Link, useLoaderData } from 'react-router-dom';
-import toast from 'react-hot-toast';
 import './Details.css';
 
 const Details = () => {
@@ -26,8 +25,10 @@ const Details = () => {
                                 <h5 className="card-title">{name}</h5>
                                 <p className="card-text">{details}</p>
 
-                                <button onClick={() => toast.success('Your course successfully')}>Buy <FaShopify></FaShopify></button>
+                                <Link to='/checkout'>
+                                    <button className='checkout'>CheckOut <FaShoppingCart></FaShoppingCart></button>
 
+                                </Link>
                             </div>
 
                         </div>

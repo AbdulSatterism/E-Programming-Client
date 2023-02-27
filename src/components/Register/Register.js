@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Register.css'
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../../context/AuthContext';
+import { toast } from 'react-hot-toast';
 
 
 const Register = () => {
-
-    const { createUser } = useContext(UserContext);
+    const [error, setError] = useState('');
+    const { createUser, updateUserProfile, emailVerification } = useContext(UserContext);
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -22,12 +23,39 @@ const Register = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                setError('')
+                form.reset();
+                handleUpdateUserProfile(name, photoURL);
+                handleEmailVerification();
+                toast.success('Send you a verification , please Verify')
+            })
+            .catch(error => {
+                setError(error.message)
+            })
+
+    }
+
+    const handleUpdateUserProfile = (name, photoURL) => {
+        const profile = {
+            displayName: name,
+            photoURL: photoURL
+        }
+        updateUserProfile(profile)
+            .then(() => { })
+            .catch((error) => console.log(error))
+    }
+
+    const handleEmailVerification = () => {
+        emailVerification()
+            .then(() => {
+
             })
             .catch(error => {
                 console.log(error)
             })
-
     }
+
+
 
     return (
         <div className='register-page container'>
@@ -56,7 +84,9 @@ const Register = () => {
                     <button type="submit">
                         Register
                     </button>
-
+                    <Form.Text className="text-danger">
+                        {error}
+                    </Form.Text>
                 </Form>
             </div>
         </div>

@@ -1,10 +1,12 @@
 import React from 'react';
 import { useContext } from 'react';
+import { Button, Image } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../context/AuthContext';
+import { FaUser } from 'react-icons/fa';
 import './Header.css'
 
 
@@ -13,8 +15,10 @@ const Header = () => {
 
     const handleLogOut = () => {
         logOut()
-            .then(() => { })
-            .catch(error => console.log(error))
+            .then(() => {
+
+            })
+            .catch((error) => console.log(error))
     }
 
     return (
@@ -32,8 +36,8 @@ const Header = () => {
                         {
                             user?.uid ?
                                 <>
-                                    <Link>{user?.email}</Link>
-                                    <button onClick={handleLogOut}>Log Out</button>
+                                    <Link>{user?.displayName}</Link>
+                                    <Button onClick={handleLogOut}>log out</Button>
                                 </>
                                 :
                                 <>
@@ -41,6 +45,20 @@ const Header = () => {
                                     <Link to='register'>Register</Link>
                                 </>
                         }
+                        <Link>
+                            {
+                                user?.photoURL ?
+                                    <Image
+                                        style={{ height: '30px' }}
+                                        roundedCircle
+                                        src={user?.photoURL}
+                                    >
+
+                                    </Image>
+                                    :
+                                    <FaUser></FaUser>
+                            }
+                        </Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

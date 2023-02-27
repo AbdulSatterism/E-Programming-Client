@@ -7,6 +7,8 @@ import Main from './Layout/Main';
 import { Toaster } from 'react-hot-toast';
 import Register from './components/Register/Register';
 import Login from './components/Login/Login';
+import PrivateRoute from './Routes/PrivateRoute/PrivateRoute';
+import CheckOut from './components/CheckOut/CheckOut';
 
 function App() {
 
@@ -27,10 +29,15 @@ function App() {
           path: '/login',
           element: <Login></Login>
         },
+        {
+          path: '/checkout',
+          element: <CheckOut></CheckOut>
+        },
 
         {
           path: '/courses',
-          element: <Courses></Courses>,
+          element:
+            <Courses></Courses>,
           loader: () => fetch('https://e-programming-server.vercel.app/courses')
         }
       ]
