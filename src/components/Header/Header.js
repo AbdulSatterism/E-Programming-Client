@@ -8,10 +8,12 @@ import { Link } from 'react-router-dom';
 import { UserContext } from '../../context/AuthContext';
 import { FaUser } from 'react-icons/fa';
 import './Header.css'
+import { useState } from 'react';
 
 
 const Header = () => {
     const { user, logOut } = useContext(UserContext);
+    const [theme, setTheme] = useState(true)
 
     const handleLogOut = () => {
         logOut()
@@ -20,6 +22,8 @@ const Header = () => {
             })
             .catch((error) => console.log(error))
     }
+
+
 
     return (
         <Navbar collapseOnSelect expand="lg" className='navbar-color'>
@@ -34,6 +38,11 @@ const Header = () => {
                         <Link to='/blog'>Blog</Link>
                         <Link to='/about'>About</Link>
                         {
+                            theme ? <button className='theme' onClick={() => setTheme(!theme)}>Dark</button>
+                                :
+                                <button className='theme' onClick={() => setTheme(!theme)}>light</button>
+                        }
+                        {
                             user?.uid ?
                                 <>
                                     <Link>{user?.displayName}</Link>
@@ -45,7 +54,7 @@ const Header = () => {
                                     <Link to='register'>Register</Link>
                                 </>
                         }
-                        <Link>
+                        <Link to='user'>
                             {
                                 user?.photoURL ?
                                     <Image

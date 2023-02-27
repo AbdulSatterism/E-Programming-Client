@@ -19,3 +19,11 @@
     border-radius: 50%;
     border: 0;
 }
+
+.theme {
+    width: 100px;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5px;
+    background-color: #404040;
+}
