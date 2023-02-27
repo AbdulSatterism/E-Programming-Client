@@ -1,0 +1,15 @@
+.register-page {
+    height: 500px;
+
+}
+
+.register-form {
+    height: 450px;
+    width: 350px;
+    border: 1px solid gray;
+    margin: 100px auto;
+    padding: 10px;
+    color: white;
+    box-shadow: 1px 1px 15px white;
+    border-radius: 5px;
+}

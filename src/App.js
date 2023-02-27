@@ -5,6 +5,8 @@ import Details from './components/Details/Details';
 import Home from './components/Home/Home';
 import Main from './Layout/Main';
 import { Toaster } from 'react-hot-toast';
+import Register from './components/Register/Register';
+import Login from './components/Login/Login';
 
 function App() {
 
@@ -16,6 +18,14 @@ function App() {
         {
           path: '/',
           element: <Home></Home>
+        },
+        {
+          path: '/register',
+          element: <Register></Register>
+        },
+        {
+          path: '/login',
+          element: <Login></Login>
         },
 
         {

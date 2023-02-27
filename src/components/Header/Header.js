@@ -1,12 +1,22 @@
 import React from 'react';
+import { useContext } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../../context/AuthContext';
 import './Header.css'
 
 
 const Header = () => {
+    const { user, logOut } = useContext(UserContext);
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => { })
+            .catch(error => console.log(error))
+    }
+
     return (
         <Navbar collapseOnSelect expand="lg" className='navbar-color'>
             <Container>
@@ -18,7 +28,19 @@ const Header = () => {
                         <Link to='/'>Home</Link>
                         <Link to='/courses'>Courses</Link>
                         <Link to='/blog'>Blog</Link>
-                        <Link to='about'>About</Link>
+                        <Link to='/about'>About</Link>
+                        {
+                            user?.uid ?
+                                <>
+                                    <Link>{user?.email}</Link>
+                                    <button onClick={handleLogOut}>Log Out</button>
+                                </>
+                                :
+                                <>
+                                    <Link to='/login'>Login</Link>
+                                    <Link to='register'>Register</Link>
+                                </>
+                        }
                     </Nav>
                 </Navbar.Collapse>
             </Container>
